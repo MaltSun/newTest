@@ -57,11 +57,17 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Restore dependencies for ConsoleApp1
+      run: dotnet restore ./ConsoleApp1/ConsoleApp1.csproj
 
-    - name: Build the project
-      run: dotnet build --no-restore
+    - name: Restore dependencies for TestProject
+      run: dotnet restore ./TestProject/TestProject.csproj
 
-    - name: Run tests
-      run: dotnet test --no-build --verbosity normal
+    - name: Build ConsoleApp1
+      run: dotnet build ./ConsoleApp1/ConsoleApp1.csproj --no-restore
+
+    - name: Build TestProject
+      run: dotnet build ./TestProject/TestProject.csproj --no-restore
+
+    - name: Run tests from TestProject
+      run: dotnet test ./TestProject/TestProject.csproj --no-build --verbosity normal
