@@ -40,29 +40,28 @@ name: .NET CI
 
 on:
   push:
-    branches:  ["main"]
+    branches: ["main"]
   pull_request:
     branches: ["main"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - name: Клонировать репозиторий
+    - name: Clone repository
       uses: actions/checkout@v3
 
-    - name: Установить .NET
+    - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
-    - name: Восстановить зависимости
+    - name: Restore dependencies
       run: dotnet restore
 
-    - name: Построить проект
+    - name: Build the project
       run: dotnet build --no-restore
 
-    - name: Запустить тесты
+    - name: Run tests
       run: dotnet test --no-build --verbosity normal
